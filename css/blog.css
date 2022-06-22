@@ -1,0 +1,15 @@
+body {
+    font-family: Montserrat, Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.wp-block-syntaxhighlighter-code {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    border-radius: 6px;
+    border: 1px dash #f6f8fa;
+}

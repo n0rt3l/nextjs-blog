@@ -23,16 +23,18 @@ const Id = ({post}) => {
   return (
     <React.Fragment>
       {/* @ts-ignore */}
-      {post &&
-      <div>
-        <br/>
-        {/* @ts-ignore */}
-        <h3>{post.title}</h3>
-        <br/>
-        {/* @ts-ignore */}
-        <div dangerouslySetInnerHTML={{__html: post.content}}></div>
+      <div style={{margin: '0 auto', width: '800px'}}>
+        {post &&
+        <div>
+          <br/>
+          {/* @ts-ignore */}
+          <h2>{post.title}</h2>
+          <br/>
+          {/* @ts-ignore */}
+          <div dangerouslySetInnerHTML={{__html: post.content}}></div>
+        </div>
+        }
       </div>
-      }
     </React.Fragment>
   );
 }
@@ -46,13 +48,13 @@ export async function getStaticPaths() {
   const jsonPosts = await response.json();
 
   const paths = jsonPosts.posts.map((post) => ({
-    params: { id: ""+post.ID },
+    params: {id: "" + post.ID},
   }))
 
-  console.log('Pathhhh= ',paths)
+  console.log('Pathhhh= ', paths)
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false }
+  return {paths, fallback: false}
 
 }
 

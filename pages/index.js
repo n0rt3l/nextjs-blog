@@ -1,24 +1,24 @@
 import React from 'react'
 import Link from 'next/link'
-import Header from "./header";
 
-function Index({ posts }) {
+function Index({posts}) {
   return (
     <React.Fragment>
-      <Header />
       <br/>
+      <div style={{margin: '0 auto', width: '800px'}}>
       {/* @ts-ignore */}
       {posts.map((post, index) => (
 
         <div>
           {/* @ts-ignore */}
-          <Link href={'/post/[id]'} as={'/post/'+post.ID}><h3>{post.title}</h3></Link>
+          <Link href={'/post/[id]'} as={'/post/' + post.ID}><a><h2>{post.title}</h2></a></Link>
           {/* @ts-ignore */}
           <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div>
           <br/>
         </div>
 
       ))}
+      </div>
     </React.Fragment>
   )
 }
