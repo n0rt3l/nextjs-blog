@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css';
 import plaintext from 'highlight.js/lib/languages/plaintext';
+import {loadPosts, wordpressUrl} from "../../config";
 
 const Id = ({post}) => {
 
@@ -40,27 +41,22 @@ const Id = ({post}) => {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/n0rtel.wordpress.com/posts');
-  if (!response.ok) {
-    // oups! something went wrong
-    return;
-  }
-  const jsonPosts = await response.json();
+  let allposts = await loadPosts()
 
-  const paths = jsonPosts.posts.map((post) => ({
+  let allpath = allposts.map((post) => ({
     params: {id: "" + post.ID},
   }))
 
-  console.log('Pathhhh= ', paths)
+  console.log('[id] Paths= ', allpath)
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return {paths, fallback: false}
+  return {paths: allpath, fallback: false}
 
 }
 
 export async function getStaticProps(context) {
   console.log(context)
-  const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/n0rtel.wordpress.com/posts/' + context.params.id);
+  const response = await fetch(wordpressUrl + context.params.id);
   if (!response.ok) {
     // oups! something went wrong
     return;

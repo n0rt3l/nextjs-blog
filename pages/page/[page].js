@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
+import {wordpressUrl, postperpage, loadPosts} from '../../config'
 
-const postperpage = 2
 
 function Page({posts,allpages,curpage }) {
   let pagesElements = []
@@ -32,15 +32,14 @@ function Page({posts,allpages,curpage }) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/n0rtel.wordpress.com/posts');
-  if (!response.ok) {
-    // oups! something went wrong
-    return;
-  }
-  const jsonPosts = await response.json();
+  let allposts = await loadPosts()
 
-  let allpages = Math.round(jsonPosts.posts.length / postperpage)
-  console.log("PAGES = ",allpages)
+  let allpath = allposts.map((post) => ({
+      params: {id: "" + post.ID},
+  }))
+
+  let allpages = Math.round(allpath.length / postperpage)
+  console.log("[page] pages = ",allpages)
 
   let paths = []
   for (let i=1; i < allpages+1; i++) {
@@ -49,7 +48,7 @@ export async function getStaticPaths() {
     })
   }
 
-  console.log('Path= ', paths)
+  console.log('[pages] Paths= ', paths)
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
   return {paths, fallback: false}
@@ -60,20 +59,16 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { page } = context.params;
   const corpage = page-1
-  const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/n0rtel.wordpress.com/posts/');
-  if (!response.ok) {
-    // oups! something went wrong
-    return;
-  }
 
-  const rjson = await response.json();
-  let allpages = rjson.posts.length / postperpage
+  let allposts = await loadPosts()
+
+  let allpages = allposts.length / postperpage
 
   return {
     props: {
       allpages: allpages,
       curpage: page,
-      posts: rjson.posts.slice(corpage*postperpage,(corpage*postperpage)+postperpage),
+      posts: allposts.slice(corpage*postperpage,(corpage*postperpage)+postperpage),
     },
   }
 }

@@ -1,8 +1,13 @@
 import React, {useEffect} from 'react';
+import {YMInitializer} from 'react-yandex-metrika';
 import '../css/blog.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({Component, pageProps}) {
+    return (
+        <React.Fragment>
+            <YMInitializer accounts={[84510148]}/>
+            <Component {...pageProps} />
+        </React.Fragment>)
 }
 
 // Only uncomment this method if you have blocking data requirements for

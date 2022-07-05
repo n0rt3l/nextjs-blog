@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Page from './page/[page]'
-const postperpage = 2
+import {wordpressUrl, postperpage, loadPosts} from "../config";
 
 function Index(context) {
 
@@ -15,20 +15,14 @@ function Index(context) {
 export async function getStaticProps(context) {
   const page  = 1
   const corpage = page-1
-  const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/n0rtel.wordpress.com/posts/');
-  if (!response.ok) {
-    // oups! something went wrong
-    return;
-  }
-
-  const rjson = await response.json();
-  let allpages = rjson.posts.length / postperpage
+  let allposts = await loadPosts()
+  let allpages = allposts.length / postperpage
 
   return {
     props: {
       allpages: allpages,
       curpage: page,
-      posts: rjson.posts.slice(corpage*postperpage,(corpage*postperpage)+postperpage),
+      posts: allposts.slice(corpage*postperpage,(corpage*postperpage)+postperpage),
     },
   }
 }
