@@ -1,5 +1,6 @@
 export const wordpressUrl = 'https://public-api.wordpress.com/rest/v1.1/sites/n0rt3l.wordpress.com/posts/'
 export const postperpage = 5
+export const yametrikaid = 84510148
 var firstLock = false
 var _allposts = null
 export const loadPosts = async () => {

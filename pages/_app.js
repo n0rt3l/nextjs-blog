@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {YMInitializer} from 'react-yandex-metrika';
 import '../css/blog.css'
+import {yametrikaid} from "../config";
 
 function MyApp({Component, pageProps}) {
     return (
         <React.Fragment>
-            <YMInitializer accounts={[84510148]}/>
+            <YMInitializer accounts={[yametrikaid]}/>
             <Component {...pageProps} />
         </React.Fragment>)
 }
