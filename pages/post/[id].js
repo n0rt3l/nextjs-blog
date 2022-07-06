@@ -26,10 +26,10 @@ const Id = ({post}) => {
       {/* @ts-ignore */}
       <div style={{margin: '0 auto', width: '800px'}}>
         {post &&
-        <div>
+        <div class="post">
           <br/>
           {/* @ts-ignore */}
-          <h2>{post.title}</h2>
+          <h2 class="title">{post.title}</h2>
           <br/>
           {/* @ts-ignore */}
           <div dangerouslySetInnerHTML={{__html: post.content}}></div>

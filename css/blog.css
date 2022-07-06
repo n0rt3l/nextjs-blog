@@ -17,3 +17,13 @@ body {
 .pages {
     overflow-wrap: break-word;
 }
+
+.post-cut > a {
+    color: #333;
+    text-decoration: none;
+}
+
+.post > h2 {
+    color: #333;
+    text-decoration: none;
+}
