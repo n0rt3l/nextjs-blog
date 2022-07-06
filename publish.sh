@@ -1,4 +1,5 @@
 #!/bin/sh
+rm -rf ./github
 git clone git@github.com:n0rt3l/n0rt3l.github.io.git ./github
 npm run build
 mv ./github/.git ./out/
