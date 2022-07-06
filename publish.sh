@@ -1,10 +1,6 @@
 #!/bin/sh
-rm -rf ./out/*
-cd out
-git init
-git remote add origin git@github.com:n0rt3l/n0rt3l.github.io.git
-git pull
-cd ..
+rm -rf ./out
+git clone git@github.com:n0rt3l/n0rt3l.github.io.git ./out
 npm run build
 cd out
 git add -A
