@@ -6,7 +6,7 @@ import {wordpressUrl, postperpage, loadPosts} from '../../config'
 function Page({posts,allpages,curpage }) {
   let pagesElements = []
   for (let i=1; i < allpages+1; i++) {
-    pagesElements.push((<React.Fragment><Link href={'/page/'+i}>{curpage == i ? '['+i+']' : i }</Link>&nbsp;</React.Fragment>))
+    pagesElements.push((<div style={{overflowWrap: 'break-word'}}><Link href={'/page/'+i}>{curpage == i ? '['+i+']' : i }</Link>&nbsp;</div>))
   }
 
   return (

@@ -1,13 +1,16 @@
-export const wordpressUrl = 'https://public-api.wordpress.com/rest/v1.1/sites/xorl.wordpress.com/posts/'
-export const postperpage = 2
+export const wordpressUrl = 'https://public-api.wordpress.com/rest/v1.1/sites/n0rt3l.wordpress.com/posts/'
+export const postperpage = 5
+var firstLock = false
+var _allposts = null
 export const loadPosts = async () => {
     return new Promise(async (resolve, reject) => {
-        if (document._allposts != undefined) {
-            resolve(window._allposts)
+        if (_allposts != undefined) {
+            resolve(_allposts)
             return
         }
-        if (!document.firstLock) {
-            document.firstLock = true
+        if (!firstLock) {
+            console.log("Enter in LOCK")
+            firstLock = true
             let loadpage = 1
             let allposts = []
             while(true) {
@@ -21,15 +24,15 @@ export const loadPosts = async () => {
                 allposts = allposts.concat(jsonPosts.posts)
                 loadpage +=  1
             }
-            document._allposts = allposts
+            _allposts = allposts
             console.log('loaded all posts length= '+allposts.length)
             resolve(allposts)
         } else {
             let c = setInterval(() => {
-                if (document._allposts != null) {
+                if (_allposts != null) {
                     console.log('Clear interval.')
                     clearInterval(c)
-                    resolve(document._allposts)
+                    resolve(_allposts)
                 } else {
                     console.log('Wait on locked c='+c)
                 }
