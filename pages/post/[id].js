@@ -36,6 +36,8 @@ const Id = ({post}) => {
         </div>
         }
       </div>
+      <br/>
+      <br/>
     </React.Fragment>
   );
 }
@@ -57,10 +59,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   console.log(context)
   const response = await fetch(wordpressUrl + context.params.id);
-  if (!response.ok) {
-    // oups! something went wrong
-    return;
-  }
+  if (!response.ok) return;
 
   const jsonPost = await response.json();
 

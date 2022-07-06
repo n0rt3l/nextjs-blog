@@ -1,7 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import Page from './page/[page]'
-import {wordpressUrl, postperpage, loadPosts} from "../config";
+import { postperpage, loadPosts} from "../config";
 
 function Index(context) {
 

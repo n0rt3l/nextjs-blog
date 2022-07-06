@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {YMInitializer} from 'react-yandex-metrika';
-import '../css/blog.css'
 import {yametrikaid} from "../config";
+import '../css/blog.css'
 
 function MyApp({Component, pageProps}) {
     return (

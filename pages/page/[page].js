@@ -1,31 +1,30 @@
 import React from 'react'
 import Link from 'next/link'
-import {wordpressUrl, postperpage, loadPosts} from '../../config'
+import { postperpage, loadPosts} from '../../config'
 
 
 function Page({posts,allpages,curpage }) {
   let pagesElements = []
   for (let i=1; i < allpages+1; i++) {
-    pagesElements.push((<div style={{overflowWrap: 'break-word'}}><Link href={'/page/'+i}>{curpage == i ? '['+i+']' : i }</Link>&nbsp;</div>))
+    pagesElements.push((<React.Fragment><Link href={'/page/'+i}>{curpage == i ? '['+i+']' : i }</Link>&nbsp;</React.Fragment>))
   }
+
+  let pagination = (<React.Fragment><span class="pages"><span>Страницы: </span>{pagesElements}</span></React.Fragment>)
 
   return (
     <React.Fragment>
       <br/>
       <div style={{margin: '0 auto', width: '800px'}}>
-      {/* @ts-ignore */}
       {posts.map((post, index) => (
 
         <div>
-          {/* @ts-ignore */}
           <Link href={'/post/[id]'} as={'/post/' + post.ID}><a><h2>{post.title}</h2></a></Link>
-          {/* @ts-ignore */}
           <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div>
           <br/>
         </div>
 
       ))}
-        Страницы: {pagesElements}
+        {allpages > 1 && pagination }
       </div>
     </React.Fragment>
   )
@@ -68,7 +67,7 @@ export async function getStaticProps(context) {
     props: {
       allpages: allpages,
       curpage: page,
-      posts: allposts.slice(corpage*postperpage,(corpage*postperpage)+postperpage),
+      posts: allposts.slice(corpage*postperpage,(corpage*postperpage)+postperpage).map(x => ({ title:x.title, excerpt: x.excerpt, ID: x.ID})),
     },
   }
 }

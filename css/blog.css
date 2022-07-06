@@ -13,3 +13,7 @@ body {
     border-radius: 6px;
     border: 1px dash #f6f8fa;
 }
+
+.pages {
+    overflow-wrap: break-word;
+}
